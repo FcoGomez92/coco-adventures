@@ -9,6 +9,7 @@ interface rarity {
     function ownerOf(uint256) external view returns (address);
 }
 
+// tiene funcionalidades de un token erc20 aunque no usa el standard
 contract rarity_gold {
     string public constant name = "Rarity Gold";
     string public constant symbol = "gold";
@@ -18,9 +19,13 @@ contract rarity_gold {
 
     rarity constant rm = rarity(0xce761D788DF608BD21bdd59d6f4B54b2e27F25Bb);
 
+    // registro del allowance de un jugador? o personaje?
     mapping(uint256 => mapping(uint256 => uint256)) public allowance;
+
+    // registro del balance de un jugador? o personaje?
     mapping(uint256 => uint256) public balanceOf;
 
+    // registro de ¿veces que ha reclamado? token un jugador? o personaje?
     mapping(uint256 => uint256) public claimed;
 
     event Transfer(uint256 indexed from, uint256 indexed to, uint256 amount);
@@ -46,6 +51,7 @@ contract rarity_gold {
             rm.ownerOf(_summoner) == msg.sender;
     }
 
+    // devuelve la cantidad reclamable para el jugador? o personaje?
     function claimable(uint256 summoner)
         external
         view
@@ -59,6 +65,7 @@ contract rarity_gold {
         }
     }
 
+    // reclama y mintea los tokens disponibles para el jugador? o personaje?
     function claim(uint256 summoner) external {
         require(_isApprovedOrOwner(summoner));
         uint256 _current_level = rm.level(summoner);

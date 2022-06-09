@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
+// Contrato que define las classes, school, range, casting_time, range, saving_throw_type, saving_throw_effect
 contract codex {
     string constant index = "Base";
     string constant class = "Generic";

@@ -1410,7 +1410,11 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
 // File: rarity_names.sol
 
+// AQUI EMPIEZA EL CONTRATO NAMES
+// utilidad para nombrar personajes, son nfts erc721
+
 contract rarity_names is ERC721Enumerable {
+    // Varieble que contabiliza el numero de tokens (se asigna como id)
     uint256 private next_name = 1;
 
     rarity_manifested constant _rm =
@@ -1418,14 +1422,14 @@ contract rarity_names is ERC721Enumerable {
     rarity_gold constant _gold =
         rarity_gold(0x2069B76Afe6b734Fb65D1d099E7ec64ee9CC76B2);
 
-    uint256 public immutable NAME_AUTHORITY = 1672924;
-    uint256 public immutable KEEPER = 1672965;
-    uint256 public immutable NAME_GOLD_PRICE = 200e18;
+    uint256 public immutable NAME_AUTHORITY = 1672924; // ???
+    uint256 public immutable KEEPER = 1672965; // ???
+    uint256 public immutable NAME_GOLD_PRICE = 200e18; // PRECIO
 
     mapping(uint256 => string) public names; // token => name
     mapping(uint256 => uint256) public summoner_to_name_id; // summoner => token
     mapping(uint256 => uint256) public name_id_to_summoner; // token => summoner
-    mapping(string => bool) private _is_name_claimed;
+    mapping(string => bool) private _is_name_claimed; // Registro de disponibilidad de nombres
 
     event NameClaimed(
         address indexed owner,
@@ -1456,6 +1460,7 @@ contract rarity_names is ERC721Enumerable {
             _rm.ownerOf(_summoner) == msg.sender;
     }
 
+    // devuelve el nombre de un personaje
     function summoner_name(uint256 summoner)
         public
         view
@@ -1464,6 +1469,7 @@ contract rarity_names is ERC721Enumerable {
         name = names[summoner_to_name_id[summoner]];
     }
 
+    // Comprueba que el nombre no este cogido
     function is_name_claimed(string memory name)
         external
         view
